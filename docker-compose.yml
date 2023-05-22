@@ -1,6 +1,6 @@
 services:
   APP:
-    image: flaskapp:1
+    image: flaskapp:1.0
     container_name: app_flask
     command: sh -c 'cd project && python3 proyect.py'
     ports:
