@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-	tit="tipulo pagina 1\n"
+	tit="titulo pagina 1\n"
 	return tit
 
 @app.route("/data")
