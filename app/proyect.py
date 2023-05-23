@@ -1,4 +1,6 @@
 from flask import Flask, jsonify
+from mongo_db import mongo_db
+dbname = mongo_db()
 
 app = Flask(__name__)
 
@@ -9,7 +11,8 @@ def home():
 
 @app.route("/data")
 def data():
-	return jsonify({'data': 2})
+	success = dbname.getAll()
+	return success
 	
 if __name__ == "__main__":
 	app.run(host="0.0.0.0",port=5000,debug=True)
