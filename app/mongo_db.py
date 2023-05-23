@@ -6,17 +6,6 @@ from flask_cors import CORS
 class mongo_db: 
 
     def getAll(self):
-        
-        """ uri = "mongodb+srv://appMongo:wQDZRCzpUBzxSSWv@cluster0.e9tjso8.mongodb.net/?retryWrites=true&w=majority"
-        my_client = MongoClient(uri, server_api=ServerApi('1'))
-        # my_client = pymongo.MongoClient(uri)
-        my_database = my_client.notesdb
-        my_collection = my_database.notes
-        my_cursor = my_collection.find({"name": 'hola'})
-        return my_cursor """
-
-        print('hola')
-
         uri = "mongodb+srv://<dbName>:<password>@cluster0.e9tjso8.mongodb.net/?retryWrites=true&w=majority"
 
         # return uri
