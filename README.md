@@ -11,7 +11,7 @@ Is a little project (CRUD) using flask and docker
 1. Build image
 
 ```bash
- docker build -t flaskapp:1.0 .
+ docker build -t flaskapp:1.01 .
 ```
 2. Run image
 ```bash
