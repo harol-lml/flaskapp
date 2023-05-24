@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from mongo_db import mongo_db
 dbname = mongo_db()
 
@@ -9,10 +9,14 @@ def home():
 	tit="titulo pagina 1\n"
 	return tit
 
-@app.route("/data")
+@app.route("/data", methods=['GET', 'POST'])
 def data():
-	success = dbname.getAll()
-	return success
+	if request.method == 'GET':
+		success = dbname.getAll()
+		return jsonify(success)
+	else:
+		note = dbname.postNote(request.form['content'])
+		return (note)
 
 if __name__ == "__main__":
 	app.run(host="0.0.0.0",port=5000,debug=True)
