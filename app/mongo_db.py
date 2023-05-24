@@ -4,6 +4,7 @@ from pymongo.server_api import ServerApi
 from flask_cors import CORS
 from dotenv import load_dotenv
 from datetime import datetime
+from bson.objectid import ObjectId
 
 
 class mongo_db:
@@ -26,19 +27,34 @@ class mongo_db:
 
         for x in query:
             output[i] = x
-            output[i].pop('_id')
+            output[i]['_id'] = str(output[i]['_id'])
             i += 1
         return output
+
+    def getById(self, id):
+        client = MongoClient( self.uri, server_api=ServerApi('1'))
+        Database = client.get_database('notesdb')
+        # Table
+        notes = Database.notes
+
+        query = notes.find_one({"_id":ObjectId(id)})
+
+        query['_id'] = str(query['_id'])
+        query['date'] = str(query['date'])
+        return query
 
     def postNote(self, data):
         note = {
             "date": datetime.now(),
-            "content": data
+            "content": data['content'],
+            "name": data['name']
         }
+        # return data['data']
         client = MongoClient( self.uri, server_api=ServerApi('1'))
         Database = client.get_database('notesdb')
         notes = Database.notes
         nnote = notes.insert_one(note)
+        print(type(nnote.inserted_id))
         new_note = notes.find_one({"_id":nnote.inserted_id})
         new_note['_id'] = str(new_note['_id'])
         new_note['date'] = str(new_note['date'])
