@@ -12,10 +12,13 @@ def home():
 @app.route("/data", methods=['GET', 'POST'])
 def data():
 	if request.method == 'GET':
+		if(request.args):
+			data = dbname.getById(request.args['id'])
+			return data
 		success = dbname.getAll()
 		return jsonify(success)
 	else:
-		note = dbname.postNote(request.form['content'])
+		note = dbname.postNote(request.form)
 		return (note)
 
 if __name__ == "__main__":
