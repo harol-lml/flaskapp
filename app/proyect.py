@@ -30,5 +30,11 @@ def dataPut():
 	dbname.putNote(note)
 	return jsonify(note)
 
+@app.route("/delete", methods=['DELETE'])
+def dataDelete():
+	id = request.form['id']
+	resp = dbname.deleteNote(id)
+	return jsonify(resp)
+
 if __name__ == "__main__":
 	app.run(host="0.0.0.0",port=5000,debug=True)

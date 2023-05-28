@@ -74,3 +74,14 @@ class mongo_db:
         notes.update_one(myNote,noteUpdate)
         for x in notes.find():
             print(x)
+
+    def deleteNote(self, id):
+
+        client = MongoClient( self.uri, server_api=ServerApi('1'))
+        Database = client.get_database('notesdb')
+        notes = Database.notes
+        notes.delete_one({"_id": ObjectId(id)})
+        for x in notes.find():
+            print(x)
+
+        return id
