@@ -21,5 +21,14 @@ def data():
 		note = dbname.postNote(request.form)
 		return (note)
 
+@app.route("/put", methods=['PUT'])
+def dataPut():
+	note = {
+		"content":	request.form['content'],
+		"old":		request.form['old']
+		}
+	dbname.putNote(note)
+	return jsonify(note)
+
 if __name__ == "__main__":
 	app.run(host="0.0.0.0",port=5000,debug=True)

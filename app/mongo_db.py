@@ -59,3 +59,18 @@ class mongo_db:
         new_note['_id'] = str(new_note['_id'])
         new_note['date'] = str(new_note['date'])
         return (new_note)
+
+    def putNote(self, data):
+        noteUpdate = {"$set":{
+            "date": datetime.now(),
+            "content": data['content']
+        }}
+
+        client = MongoClient( self.uri, server_api=ServerApi('1'))
+        Database = client.get_database('notesdb')
+        notes = Database.notes
+        myNote = {"_id": ObjectId(data['old'])}
+
+        notes.update_one(myNote,noteUpdate)
+        for x in notes.find():
+            print(x)
